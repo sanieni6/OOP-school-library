@@ -26,40 +26,45 @@ class App
 
   def create_person(type)
     if type == 'student'
-      print 'Age: '
-      age = gets.chomp.to_i
-      print 'Name: '
-      name = gets.chomp
-      print 'HAS PARENT PERMISSION? [Y/N]: '
-      parent_permission = gets.chomp == 'y' ? true : false
-
-      student = Student.new(age, name, parent_permission: parent_permission)
-      @people.push(student)
-      puts "Student created sucessfully"
-
+      create_student
     elsif type == 'teacher'
-      print 'Age: '
-      age = gets.chomp.to_i
-      print 'Name: '
-      name = gets.chomp
-      print 'specialization: '
-      specialization = gets.chomp
-
-      teacher = Teacher.new(age, specialization, name)
-      @people.push(teacher)
-      puts "Teacher created sucessfully"
+      create_teacher
     else
       puts 'Invalid person type'
     end
   end
 
+  def create_student
+    print 'Age: '
+    age = gets.chomp.to_i
+    print 'Name: '
+    name = gets.chomp
+    print 'HAS PARENT PERMISSION? [Y/N]: '
+    parent_permission = gets.chomp == 'y'
+    student = Student.new(age, name, parent_permission: parent_permission)
+    @people.push(student)
+    puts 'Student created sucessfully'
+  end
+
+  def create_teacher
+    print 'Age: '
+    age = gets.chomp.to_i
+    print 'Name: '
+    name = gets.chomp
+    print 'specialization: '
+    specialization = gets.chomp
+    teacher = Teacher.new(age, specialization, name)
+    @people.push(teacher)
+    puts 'Teacher created sucessfully'
+  end
+
   def create_book
-    print "Title: "
+    print 'Title: '
     title = gets.chomp
-    print "Author: "
+    print 'Author: '
     author = gets.chomp
     book = Book.new(title, author)
-    puts "Book created sucessfully"
+    puts 'Book created sucessfully'
     @books.push(book)
     # print(@books)
   end
@@ -83,7 +88,7 @@ class App
     rental = Rental.new(date, @books[book_index], @people[person_index])
     @rentals.push(rental)
 
-    puts "Rental created sucessfully"
+    puts 'Rental created sucessfully'
   end
 
   def list_all_rentals
@@ -97,7 +102,7 @@ class App
       id = gets.chomp.to_i
       rentals_found = false
 
-      puts "Rentals:"
+      puts 'Rentals:'
       @rentals.each do |rental|
         if rental.person.id == id
           puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}"
@@ -105,7 +110,7 @@ class App
         end
       end
 
-      puts "No rentals for this person" unless rentals_found
+      puts 'No rentals for this person' unless rentals_found
     end
   end
 end
